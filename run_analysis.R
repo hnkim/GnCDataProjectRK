@@ -1,8 +1,8 @@
 getwd()
 setwd("~/Dropbox/Coursera/R codes/03_Getting_Cleaning Data")
 
-list.files("./proj_dataset/train")
-list.files("./proj_dataset/test")
+# list.files("./proj_dataset/train")
+# list.files("./proj_dataset/test")
 
 featureDF <- read.table("./proj_dataset/features.txt")
 head(featureDF)

@@ -10,10 +10,9 @@ download.file(fileUrl, destfile = fileName, method = 'curl')
 unzip(fileName)
 
 featureDF <- read.table("./UCI HAR Dataset/features.txt")
-head(featureDF)
 
 ## Get the measurements on the mean and standard deviation
-featureDF1 <- grep("(mean|std)",featureDF[,2], value=T)
+featureDF1 <- grep("(mean|std)[(]",featureDF[,2], value=T)
 
 ## Import Training Datasets & peform Feature Selections
 trainIDdf <- read.table("./UCI HAR Dataset/train/subject_train.txt")
@@ -56,8 +55,6 @@ mergedDF1 <- subset(mergedDF, select = -labels)
 
 ## Create tidy data frame and export to flat file 
 meltDF <- melt(mergedDF1, id=c("activityDesc", "id"), na.rm=T)
-str(meltDF)
-
 tidyDF <- dcast(meltDF, activityDesc + id ~ variable, mean)
 
 write.table(tidyDF, file="tidy_dataset.txt")

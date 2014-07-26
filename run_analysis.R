@@ -53,10 +53,12 @@ intersect(names(fullDF), names(activityDF))
 mergedDF <-merge(fullDF,activityDF, by="labels", all=T)
 mergedDF1 <- subset(mergedDF, select = -labels)
 
-## Create tidy data frame and export to flat file 
+## Create tidy data frame  
 meltDF <- melt(mergedDF1, id=c("activityDesc", "id"), na.rm=T)
 tidyDF <- dcast(meltDF, activityDesc + id ~ variable, mean)
 
+## export to flat file
+write.table(fullDF, file="full_dataset.txt")
 write.table(tidyDF, file="tidy_dataset.txt")
 
 rm(mergedDF, mergedDF1, meltDF)

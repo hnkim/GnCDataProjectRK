@@ -1,19 +1,24 @@
-getwd()
+library(reshape2)
+
 setwd("~/Dropbox/Coursera/R codes/03_Getting_Cleaning Data")
 
-# list.files("./proj_dataset/train")
-# list.files("./proj_dataset/test")
+## Download the zipped data and unzip it
+fileUrl <- 'https://d396qusza40orc.cloudfront.net/getdata%2Fprojectfiles%2FUCI%20HAR%20Dataset.zip'
+fileName <- 'dataset.zip'
+    
+download.file(fileUrl, destfile = fileName, method = 'curl')
+unzip(fileName)
 
-featureDF <- read.table("./proj_dataset/features.txt")
+featureDF <- read.table("./UCI HAR Dataset/features.txt")
 head(featureDF)
 
-featureDF1 <- grep(".(mean|std).",featureDF[,2], value=T)
-featureDF1
+## Get the measurements on the mean and standard deviation
+featureDF1 <- grep("(mean|std)",featureDF[,2], value=T)
 
-## Import Training Datasets & Feature Selection
-trainIDdf <- read.table("./proj_dataset/train/subject_train.txt")
-trainXdf <- read.table("./proj_dataset/train/X_train.txt")
-trainYdf <- read.table("./proj_dataset/train/y_train.txt")
+## Import Training Datasets & peform Feature Selections
+trainIDdf <- read.table("./UCI HAR Dataset/train/subject_train.txt")
+trainXdf  <- read.table("./UCI HAR Dataset/train/X_train.txt")
+trainYdf  <- read.table("./UCI HAR Dataset/train/y_train.txt")
 
 names(trainIDdf) <- "id"
 names(trainXdf) <- featureDF[,2]
@@ -23,10 +28,10 @@ trainDF <- cbind(trainIDdf, trainXdf1, trainYdf)
 
 rm(trainIDdf, trainXdf, trainYdf, trainXdf1)
 
-## Import Test Datasets & Feature Selection
-testIDdf <- read.table("./proj_dataset/test/subject_test.txt")
-testXdf <- read.table("./proj_dataset/test/X_test.txt")
-testYdf <- read.table("./proj_dataset/test/y_test.txt")
+## Import Test Datasets & perform Feature Selections
+testIDdf <- read.table("./UCI HAR Dataset/test/subject_test.txt")
+testXdf  <- read.table("./UCI HAR Dataset/test/X_test.txt")
+testYdf  <- read.table("./UCI HAR Dataset/test/y_test.txt")
 
 
 names(testIDdf) <- "id"
@@ -41,20 +46,21 @@ rm(testIDdf, testXdf, testYdf, testXdf1)
 fullDF <- rbind(trainDF, testDF)
 rm(trainDF, testDF)
 
-activityDF <- read.table("./proj_dataset/activity_labels.txt")
+activityDF <- read.table("./UCI HAR Dataset/activity_labels.txt")
 names(activityDF) <- c("labels", "activityDesc")
 
-# check column names and create merged Data Frame
+## Check column names and create merged Data Frame
 intersect(names(fullDF), names(activityDF))
 mergedDF <-merge(fullDF,activityDF, by="labels", all=T)
 mergedDF1 <- subset(mergedDF, select = -labels)
 
-# create tidy data frame 
-library(reshape2)
+## Create tidy data frame and export to flat file 
 meltDF <- melt(mergedDF1, id=c("activityDesc", "id"), na.rm=T)
 str(meltDF)
 
 tidyDF <- dcast(meltDF, activityDesc + id ~ variable, mean)
 
 write.table(tidyDF, file="tidy_dataset.txt")
+
+rm(mergedDF, mergedDF1, meltDF)
 

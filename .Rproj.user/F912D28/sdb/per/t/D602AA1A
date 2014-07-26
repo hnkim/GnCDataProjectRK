@@ -1,0 +1,16 @@
+{
+    "contents" : "getwd()\nsetwd(\"~/Dropbox/Coursera/R codes/03_Getting_Cleaning Data\")\n\n# list.files(\"./proj_dataset/train\")\n# list.files(\"./proj_dataset/test\")\n\nfeatureDF <- read.table(\"./proj_dataset/features.txt\")\nhead(featureDF)\n\n## Import Training Datasets\ntrainXdf <- read.table(\"./proj_dataset/train/X_train.txt\")\ntrainYdf <- read.table(\"./proj_dataset/train/y_train.txt\")\n\n## Import Test Datasets\ntestXdf <- read.table(\"./proj_dataset/test/X_test.txt\")\ntestYdf <- read.table(\"./proj_dataset/test/y_test.txt\")\n\nnames(trainXdf) <- featureDF[,2]\n# names(trainXdf)\n\nnames(testXdf) <- featureDF[,2]\n# names(testXdf)\n\nnames(trainYdf) <- \"labels\"\nnames(testYdf) <- \"labels\"\n\ntrainDF <- cbind(trainXdf, trainYdf)\ntestDF <- cbind(testXdf, testYdf)\n\nfullDF <- rbind(trainDF, testDF)\n",
+    "created" : 1405705911767.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "1820429027",
+    "id" : "D602AA1A",
+    "lastKnownWriteTime" : 1405710626,
+    "path" : "~/Documents/Coursera/03_Getting_Cleaning Data/GnCDataProjectRK/run_analysis.R",
+    "project_path" : "run_analysis.R",
+    "properties" : {
+    },
+    "source_on_save" : false,
+    "type" : "r_source"
+}

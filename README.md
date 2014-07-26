@@ -17,7 +17,7 @@ The script (`run_analysis.R`) performs the following jobs;
 - writes the tidy data set to `tidy_dataset.txt`
 
 ## The Raw Data
-The R script includes the steps to download zip file and from the below link;
+The R script includes the steps to download/extract the zip file from the below link;
 <https://d396qusza40orc.cloudfront.net/getdata%2Fprojectfiles%2FUCI%20HAR%20Dataset.zip>
 
 

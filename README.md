@@ -3,7 +3,6 @@
 This repo contains project code and files for `Getting and Cleaning Data` 
 course as part of my data science specializations by John Hopkins University on Coursera.
 
-### R Script 
 
 The script (`run_analysis.R`) performs the following jobs;
 

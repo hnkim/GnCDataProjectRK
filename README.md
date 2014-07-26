@@ -12,5 +12,6 @@ The script (`run_analysis.R`) performs the following jobs;
 - uses descriptive activity names to name the activities in the data set
 - appropriately labels the data set with descriptive variable names. 
 - creates a tidy data set with the average of each variable for each activity and each subject. 
+- writes the full data set to `full_dataset.txt`
 - writes the tidy data set to `tidy_dataset.txt`
 

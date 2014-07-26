@@ -101,5 +101,5 @@ function require `reshape2` package.
 ## Create tidy data frame  
 meltDF <- melt(mergedDF1, id=c("activityDesc", "id"), na.rm=T)
 tidyDF <- dcast(meltDF, activityDesc + id ~ variable, mean)
-
+```
 
